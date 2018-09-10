@@ -1,41 +1,44 @@
--- »óÇ° Å×ÀÌºí
+-- ìƒí’ˆ í…Œì´ë¸”
 CREATE TABLE shop(
-	num NUMBER PRIMARY KEY, --»óÇ°¹øÈ£
-	name VARCHAR2(30), --»óÇ°ÀÌ¸§
-	price NUMBER, --»óÇ°°¡°Ý
-	stock NUMBER CHECK(stock >= 0) --Àç°í°³¼ö 
+	num NUMBER PRIMARY KEY, --ìƒí’ˆë²ˆí˜¸
+	name VARCHAR2(30), --ìƒí’ˆì´ë¦„
+	price NUMBER, --ìƒí’ˆê°€ê²©
+	stock NUMBER CHECK(stock >= 0) --ìž¬ê³  ê°œìˆ˜ 
 );
 
--- °í°´ °èÁÂ Å×ÀÌºí
+-- ê³ ê° ê³„ì¢Œ í…Œì´ë¸”
 CREATE TABLE client_account(
-	id VARCHAR2(30) PRIMARY KEY, -- °í°´ÀÇ ¾ÆÀÌµð
-	money NUMBER CHECK(money >= 0), -- °í°´ÀÇ ÀÜ°í 
+	id VARCHAR2(30) PRIMARY KEY, --ê³ ê°ì˜ id
+	money NUMBER CHECK(money >= 0), --ê³ ê°ì˜ ìž”ê³  
 	point NUMBER
 );
 
--- ÁÖ¹® Å×ÀÌºí
+-- ì£¼ë¬¸ í…Œì´ë¸”
 CREATE TABLE client_order(
-	num NUMBER PRIMARY KEY, -- ÁÖ¹®¹øÈ£
-	id VARCHAR2(30), -- ÁÖ¹® °í°´ÀÇ ¾ÆÀÌµð
-	code NUMBER, -- ÁÖ¹®ÇÑ »óÇ°ÀÇ ¹øÈ£ 
-	addr VARCHAR2(50) -- ¹è¼Û ÁÖ¼Ò
+	num NUMBER PRIMARY KEY, --ì£¼ë¬¸ë²ˆí˜¸
+	id VARCHAR2(30), --ì£¼ë¬¸ ê³ ê°ì˜ id
+	code NUMBER, --ì£¼ë¬¸í•œ ìƒí’ˆë²ˆí˜¸
+	addr VARCHAR2(50) --ë°°ì†¡ ì£¼ì†Œ
 );
 
--- ÁÖ¹® Å×ÀÌºí¿¡ »ç¿ëÇÒ ½ÃÄö½º
+-- ì£¼ë¬¸ í…Œì´ë¸”ì— ì‚¬ìš©í•  ì‹œí€€ìŠ¤
 CREATE SEQUENCE client_order_seq;
 
 -- sample data
 INSERT INTO shop (num, name, price, stock)
-VALUES(1, '»ç°ú', '1000', 5);
+VALUES(1, 'ì‚¬ê³¼', '1000', 5);
 
 INSERT INTO shop (num, name, price, stock)
-VALUES(2, '¹Ù³ª³ª', '2000', 5);
+VALUES(2, 'ë°”ë‚˜ë‚˜', '2000', 5);
 
 INSERT INTO shop (num, name, price, stock)
-VALUES(3, '±Ö', '3000', 5);
+VALUES(3, 'ê·¤', '3000', 5);
 
 INSERT INTO client_account (id, money, point)
 VALUES('superman', 10000, 0);
 
 INSERT INTO client_account (id, money, point)
 VALUES('batman', 10000, 0);
+
+-- Users í…Œì´ë¸”ì— profile ì´ë¯¸ì§€ë¥¼ ì €ìž¥í•  ì¹¼ëŸ¼ ì¶”ê°€
+ALTER TABLE users ADD(profileImage VARCHAR2(100));

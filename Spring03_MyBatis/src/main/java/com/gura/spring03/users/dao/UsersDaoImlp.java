@@ -26,6 +26,10 @@ public class UsersDaoImlp implements UsersDao {
 	public void update(UsersDto dto) {
 		session.update("users.update", dto);
 	}
+	@Override
+	public void updateProfile(UsersDto dto) {
+		session.update("users.updateProfile", dto);
+	}
 	//회원 한명의 정보를 삭제하는 메소드
 	@Override
 	public void delete(String id) {

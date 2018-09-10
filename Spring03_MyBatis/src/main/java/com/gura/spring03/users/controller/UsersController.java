@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring03.users.dto.UsersDto;
@@ -96,6 +97,15 @@ public class UsersController {
 		//mView.setViewName("redirect:/users/info.do");
 		return new ModelAndView("redirect:/users/info.do");
 		//return mView;
+	}
+	//프로필 이미지 수정 요청 처리
+	@RequestMapping("/users/profile_update")
+	@ResponseBody
+	public Map<String, Object> authProfileupdate(HttpServletRequest request, @RequestParam MultipartFile file) {
+		String fileName=service.profileUpdate(request, file);
+		Map<String, Object> map=new HashMap<>();
+		map.put("fileName", fileName);
+		return map;
 	}
 	//비밀번호수정양식 요청 처리
 	@RequestMapping("/users/pw_change_form")

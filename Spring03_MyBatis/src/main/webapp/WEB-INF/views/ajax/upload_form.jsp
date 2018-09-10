@@ -61,6 +61,7 @@
 		var fileName=responseData.fileName;
 		var imagePath="${pageContext.request.contextPath }/upload/"+fileName;
 		$("<img>").attr("src", imagePath).appendTo("#result");
+		$("#fileForm3 input[type=file]").attr("type", "").attr("type", "file").val("");
 	});
 	$("#fileForm3 #file").on("input", function() {
 		$("#fileForm3").submit();

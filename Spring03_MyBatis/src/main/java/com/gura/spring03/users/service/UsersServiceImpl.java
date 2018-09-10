@@ -1,11 +1,17 @@
 package com.gura.spring03.users.service;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring03.users.dao.UsersDao;
@@ -57,6 +63,30 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void update(UsersDto dto) {
 		dao.update(dto);
+	}
+	@Override
+	public String profileUpdate(HttpServletRequest request, MultipartFile file) {
+		String id=(String)request.getSession().getAttribute("id");
+		String realPath=request.getServletContext().getRealPath("/upload");
+		String orgFileName=file.getOriginalFilename();
+		//저장할 파일의 상세 경로
+		String filePath=realPath+File.separator;
+		//파일 시스템에 저장할 파일명을 생성한다.
+		String saveFileName=System.currentTimeMillis()+orgFileName;
+		File uploadFolder=new File(filePath);
+		if(!uploadFolder.exists()) {
+			uploadFolder.mkdir();
+		}
+		try {
+			file.transferTo(new File(filePath+saveFileName));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		UsersDto dto=new UsersDto();
+		dto.setId(id);
+		dto.setProfileImage(saveFileName);
+		dao.updateProfile(dto);
+		return saveFileName;
 	}
 	@Override
 	public boolean isValidPwd(String inputPwd, HttpSession session) {
